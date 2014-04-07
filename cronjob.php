@@ -21,6 +21,7 @@ foreach($roots as $root) {
 		$i = 0;
 		foreach($groups as $group) {
 			if(catchExceptions($group['channel_name'], $exceptions)) {
+				$groupCount--;
 				continue;
 			}
 			$i++;
