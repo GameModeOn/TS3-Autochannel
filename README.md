@@ -1,4 +1,4 @@
 TS3-Autochannel
 ===============
 
-Keeps your TS3 group channel amount at the minimum
+Keeps your TS3 group channel amount at a minimum
