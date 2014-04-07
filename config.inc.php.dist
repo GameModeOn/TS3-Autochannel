@@ -1,0 +1,12 @@
+<?php
+$framework = 'ts3/TeamSpeak3.php'; //get the TeamSpeak 3 PHP Framework from http://addons.teamspeak.com/directory/tools/integration/TeamSpeak-3-PHP-Framework.html
+
+$roots = array('[spacer]Game Area', 'WoW');
+$exceptions = array('Ladder');
+$default = 'Group 1';
+
+$host = 'ts3.1337community.org';
+$queryport = 10011;
+$voiceport = 9987;
+$user = 'serveradmin';
+$passwd = 'supersecret';
