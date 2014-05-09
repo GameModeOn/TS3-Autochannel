@@ -35,23 +35,25 @@ foreach($roots as $root) {
 				$regex = '#([0-9]{1,3})#e';
 				$replacement = '("$1" + 1)';
 				$newName = preg_replace($regex, $replacement, $group['channel_name']);
-				createChannel($server, $newName, $sub);
+				createChannel($server, $newName, $sub, $options);
 			}
 		}
 		if(empty($groups) OR $i == 0) {
-			createChannel($server, $default, $sub);
+			createChannel($server, $default, $sub, $options);
 		}
 	}
 }
 
-function createChannel($server, $name, $parent) {
-	return $server->channelCreate(
-		array(
-			'channel_name' => $name,
-			'channel_flag_permanent' => TRUE,
-			'cpid' => $parent->getId()
-		)
-	);
+function createChannel($server, $name, $parent, $options) {
+	$id = $server->channelCreate(array(
+		'channel_name' => $name,
+		'channel_flag_permanent' => TRUE,
+		'cpid' => $parent->getId()
+	));
+	if($options['inherit_icons']) {
+		$channel = $server->channelGetById($id);
+		$channel->modify(array('channel_icon_id' => $parent->getProperty('channel_icon_id')));
+	}
 }
 function catchExceptions($name, $excpetions) {
 	foreach($excpetions as $exception) {
