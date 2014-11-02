@@ -16,7 +16,8 @@ foreach($roots as $root) {
 
 		$groups = $sub->subChannelList();
 		$groupCount = count($groups);
-	
+		
+		$availablechannel = false;
 		$i = 0;
 		foreach($groups as $group) {
 			if(catchExceptions($group['channel_name'], $exceptions)) {
@@ -24,14 +25,17 @@ foreach($roots as $root) {
 				continue;
 			}
 			$i++;
-			if($i == $groupCount AND $delete == false) {
+			if($group['total_clients'] == 0) {
+				$availablechannel = true;
+			}
+			if($i == $groupCount AND $availablechannel = false) {
 				$regex = '#([0-9]{1,3})#e';
 				$replacement = '("$1" + 1)';
 				$newName = preg_replace($regex, $replacement, $group['channel_name']);
 				createChannel($server, $newName, $sub, $options);
 			}
 		}
-		if($i == 0) {
+		if(empty($groups) OR $i == 0) {
 			createChannel($server, $default, $sub, $options, array('channel_flag_permanent' => TRUE));
 		}
 	}
