@@ -2,9 +2,11 @@
 require_once('config.inc.php');
 require_once($framework);
 
-$exceptions = array_unique(array_merge($exceptions, $roots));
+if(__FILE__ != get_included_files()[0]) {
+	$server = TeamSpeak3::factory('serverquery://'.$user.':'.$passwd.'@'.$host.':'.$queryport.'/?server_port='.$voiceport);
+}
 
-$server = TeamSpeak3::factory('serverquery://'.$user.':'.$passwd.'@'.$host.':'.$queryport.'/?server_port='.$voiceport);
+$exceptions = array_unique(array_merge($exceptions, $roots));
 
 foreach($roots as $root) {
 	$root = $server->channelGetByName($root);
