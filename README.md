@@ -11,6 +11,6 @@ There are some requirements to the channel structure:
 
 The root channels can be nested of course and you can set exceptional channels which are ignored during the excecution.
 
-![reference tree](https://raw.githubusercontent.com/GameModeOn/TS3-Autochannel/master/images/reference.jpg)
+![reference tree](https://cdn.mediacru.sh/FKlUC2WMHvAo.jpe)
 
-![live and in action](https://raw.githubusercontent.com/GameModeOn/TS3-Autochannel/master/images/live.jpg)
+![live and in action](https://cdn.mediacru.sh/whvu4UCSep_d.jpg)
