@@ -17,7 +17,6 @@ foreach($roots as $root) {
 		$groups = $sub->subChannelList();
 		$groupCount = count($groups);
 	
-		$delete = false;
 		$i = 0;
 		foreach($groups as $group) {
 			if(catchExceptions($group['channel_name'], $exceptions)) {
@@ -25,12 +24,6 @@ foreach($roots as $root) {
 				continue;
 			}
 			$i++;
-			if($delete == true AND $group['total_clients'] == 0) {
-				$group->delete();
-			}
-			if($group['total_clients'] == 0) {
-				$delete = true;
-			}
 			if($i == $groupCount AND $delete == false) {
 				$regex = '#([0-9]{1,3})#e';
 				$replacement = '("$1" + 1)';
@@ -38,18 +31,21 @@ foreach($roots as $root) {
 				createChannel($server, $newName, $sub, $options);
 			}
 		}
-		if(empty($groups) OR $i == 0) {
-			createChannel($server, $default, $sub, $options);
+		if($i == 0) {
+			createChannel($server, $default, $sub, $options, array('channel_flag_permanent' => TRUE));
 		}
 	}
 }
 
-function createChannel($server, $name, $parent, $options) {
-	$id = $server->channelCreate(array(
-		'channel_name' => $name,
-		'channel_flag_permanent' => TRUE,
+function createChannel($server, $name, $parent, $options, $addparam = array()) {
+	$parameters = array(
+		'channel_name' => $name, 
 		'cpid' => $parent->getId()
-	));
+	);
+	$parameters = array_merge($parameters, $addparam);
+	
+	$id = $server->channelCreate($parameters);
+	
 	if($options['inherit_icons']) {
 		$channel = $server->channelGetById($id);
 		$channel->modify(array('channel_icon_id' => $parent->getProperty('channel_icon_id')));
