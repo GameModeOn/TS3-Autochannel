@@ -26,7 +26,7 @@ foreach($roots as $root) {
 				continue;
 			}
 			$i++;
-			if($delete == true AND $group['total_clients'] == 0) {
+			if($delete == true AND $group['total_clients'] == 0 AND $i != 1) {
 				$group->delete();
 			}
 			if($group['total_clients'] == 0) {
