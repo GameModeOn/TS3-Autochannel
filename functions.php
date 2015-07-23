@@ -2,7 +2,7 @@
 function createChannel($server, $name, $parent, $options) {
 	$id = $server->channelCreate(array(
 		'channel_name' => $name,
-		'channel_flag_permanent' => TRUE,
+		'channel_flag_semi_permanent' => TRUE,
 		'cpid' => $parent->getId()
 	));
 	if($options['inherit_icons']) {
